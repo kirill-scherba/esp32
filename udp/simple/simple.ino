@@ -15,6 +15,9 @@ void setup() {
     delay(100);
   }
 
+  // Clear saved wifi credentials
+  // wifi.reset();
+
   // Start WiFi and UDP
   wifi.start();
   wifi.startUDP();

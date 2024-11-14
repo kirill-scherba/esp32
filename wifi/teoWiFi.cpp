@@ -84,7 +84,8 @@ void TeoWiFiClass::start() {
 
   // Check if the data is valid
   if (!eeprom.check(buf)) {
-    // If the data is invalid, ask the user for the WiFi connection data and store it in the EEPROM
+    // If the data is invalid, ask the user for the WiFi connection data and
+    // store it in the EEPROM
     buf = eeprom.ask();
     eeprom.write(buf);
   }
@@ -125,4 +126,15 @@ void TeoWiFiClass::listenUDP() {
     Serial.print("Message: ");
     Serial.println(packetBuffer);
   }
+}
+
+/**
+ * Resets the WiFi connection data stored in the EEPROM.
+ *
+ * This function is useful if you want to clear the stored WiFi connection
+ * data and start fresh.
+ */
+void TeoWiFiClass::reset() {
+  // Reset the EEPROM by calling the TeoEEPROMClass method
+  TeoEEPROMClass().reset();
 }

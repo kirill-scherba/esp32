@@ -11,6 +11,7 @@ public:
   void start(const char *ssid, const char *password);
   void startUDP();
   void listenUDP();
+  void reset();
 
 private:
   WiFiUDP udp;
