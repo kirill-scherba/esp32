@@ -13,6 +13,8 @@
   by Kirill Scherba
 */
 
+#include <teoTouch.h>
+
 // Define the LED pin
 const int ledPin = 2;        // Boaar Led
 const int ledPinGreen1 = 18; // Green Led 1
@@ -56,64 +58,54 @@ void setup() {
   pinMode(ledPinGreen2, OUTPUT);
   pinMode(ledPinRed2, OUTPUT);
 
-  // Set the touch interrupt pins
-  touchAttachInterrupt(buttons[0].pin, touchButtonPin1, threshold);
-  touchAttachInterrupt(buttons[1].pin, touchButtonPin2, threshold);
-  touchAttachInterrupt(buttons[2].pin, touchButtonPin3, threshold);
+  // Create the touch pins callbacks
+  new TeoTouchClass(buttons[0].pin, switchLed);
+  new TeoTouchClass(buttons[1].pin, switchLed);
+  new TeoTouchClass(buttons[2].pin, switchLed);
+
+  // Serial.printf("setup, num buttons: %d\n", touch->numTouchActions());
 }
 
-/**
- * @brief Handler for touch button presses
- *
- * This function is called when a touch button press is detected. It will
- * toggle the state of the button and turn the associated LED on or off.
- *
- * @param i The index of the button in the buttons array
- */
-void touchButtonPin(int i) {
-
-  auto val = touchRead(buttons[i].pin);
-  // Serial.printf("  ---- Touch %d was Pressed = %d \n", i, val);
-
-  // Ignore the touch if the value is above the threshold
-  if (val > threshold) {
-    return;
-  }
-
-  // Get the current time in milliseconds
-  auto ms = millis();
-  // Calculate the difference between the current time and the last touch time
-  auto diff = ms - buttons[i].lastTouchMillis;
-  // Update the last touch time
-  buttons[i].lastTouchMillis = ms;
-
-  // Ignore the touch if it was less than repeatInterval since the last touch
-  if (diff < repeatInterval) {
-    return;
-  }
-
-  // Switch active state and toggle LED
-  buttons[i].state = !buttons[i].state;
-  if (buttons[i].state) {
+void switchLed(int i, bool state) {
+  Serial.printf("switchLed %d, state: %d\n", i, state);
+  buttons[i].state = state;
+  buttons[i].lastTouchMillis = millis();
+  if (state) {
     digitalWrite(buttons[i].ledPin, HIGH);
   } else {
     digitalWrite(buttons[i].ledPin, LOW);
   }
 }
 
-void touchButtonPin1() { touchButtonPin(0); }
-void touchButtonPin2() { touchButtonPin(1); }
-void touchButtonPin3() { touchButtonPin(2); }
+bool lastBlink = true;
 
 void loop() {
 
-  // Turn the LED on
+  // Get last touch time to check if we need to blink after 5 seconds of
+  // inactivity
+  unsigned long lastTouchMillis = 0;
   for (int i = 0; i < 3; i++) {
-    if (buttons[i].state) {
-      digitalWrite(buttons[i].ledPin, HIGH);
+    lastTouchMillis = max(lastTouchMillis, buttons[i].lastTouchMillis);
+  }
+  bool blink = millis() - lastTouchMillis > 5000;
+
+  // Turn the LEDs on
+  digitalWrite(ledPin, HIGH);
+  if (lastBlink) {
+    for (int i = 0; i < 3; i++) {
+      if (buttons[i].state) {
+        digitalWrite(buttons[i].ledPin, HIGH);
+      }
     }
   }
-  digitalWrite(ledPin, HIGH);
+
+  // Delay for 50 ms and skip if not blinking
+  if (!blink) {
+    lastBlink = false;
+    delay(50);
+    return;
+  }
+  lastBlink = true;
 
   // Delay for 1 second
   delay(1000);
@@ -128,4 +120,3 @@ void loop() {
   // Delay for 1 second
   delay(1000);
 }
-

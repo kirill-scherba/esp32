@@ -1,23 +1,20 @@
 /**
- * @file    teowifi.cpp
+ * @file    teoWiFi.cpp
  * @author  Kirill Scherba
- *
- * @date    Nov 14, 2024, 11:23 PM
  *
  * @copyright (C) Kirill Scherba 2024 <kirill@scherba.ru>
  *
  * @license teoWiFi is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * under the terms of the BSD 3-clause license as published by the
+ * University of California, Berkeley.
  *
  * teoWiFi is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
+ * See the BSD 3-clause license for more details.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the BSD 3-clause license along
+ * with this program.  If not, see <http://www.opensource.org/licenses/bsd-license.php>.
  *
  * @version 0.0.1
  *

@@ -1,25 +1,29 @@
-/*
- * Copyright 2024 Kirill Scherba <kirill@scherba.ru>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 /**
- * @file teoEEPROM.cpp
- * Implements the TeoEEPROMClass class, which is responsible for storing and
- * retrieving WiFi connection data from the EEPROM.
+ * @file    teoEEPROM.cpp
+ * @author  Kirill Scherba
+ *
+ * @copyright (C) Kirill Scherba 2024 <kirill@scherba.ru>
+ *
+ * @license teoEEPROM is free software: you can redistribute it and/or modify it
+ * under the terms of the BSD 3-clause license as published by the
+ * University of California, Berkeley.
+ *
+ * teoEEPROM is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the BSD 3-clause license for more details.
+ *
+ * You should have received a copy of the BSD 3-clause license along
+ * with this program.  If not, see <http://www.opensource.org/licenses/bsd-license.php>.
+ *
+ * @version 0.0.1
+ *
+ * @brief TeoEEPROM is Arduino library for store some data to EEPROM.
+ *
+ * @details
+ * TeoEEPROM is a light library for Arduino for store some data to EEPROM.
+ * And it's use some magic constants for check data integrity.
  */
-
 #include "teoEEPROM.h"
 
 // Define the size of the EEPROM
